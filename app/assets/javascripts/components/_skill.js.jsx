@@ -3,11 +3,15 @@ var Skill = createReactClass({
     return { editable: false }
   },
 
+  handleUpdateSkill(event) {
+    this.setState({ [event.target.name]: event.target.value});
+  },
+
   handleEdit() {
     if (this.state.editable) {
       let skill   = { id: this.props.skill.id,
-                      name: this.refs.name.value,
-                      details: this.refs.details.value }
+                      name: this.state.skill,
+                      details:  this.state.details }
 
       this.props.handleEdit(skill);
     }
@@ -40,13 +44,13 @@ var Skill = createReactClass({
   },
 
   render() {
-    var name = this.state.editable ? <input type='text'
-                                           
+    var name = this.state.editable ? <input type='text' name="skill"
+                                            onChange={this.handleUpdateSkill} 
                                             defaultValue={this.props.skill.name} />
                                    : <h3>{this.props.skill.name}</h3>
 
-    let details = this.state.editable ? <textarea type='text'
-                                                 
+    let details = this.state.editable ? <textarea type='text' name="details"
+                                                  onChange={this.handleUpdateSkill} 
                                                   defaultValue={this.props.skill.details}>
                                         </textarea>
                                       : <p>{this.props.skill.details}</p>
